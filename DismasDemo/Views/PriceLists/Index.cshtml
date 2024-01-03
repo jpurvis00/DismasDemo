@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DismasDemo.Models.PriceList>
+
+@{
+    ViewData["Title"] = "Price Lists";
+}
+
+<h1>Price Lists</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceListName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceListName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PriceListID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PriceListID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PriceListID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

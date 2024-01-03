@@ -1,0 +1,63 @@
+﻿@model DismasDemo.Models.PriceList
+
+@{
+    ViewData["Title"] = "Price List Details";
+}
+
+<div>
+    <h4>Price List Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PriceListName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PriceListName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prices)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Part</th>
+                    <th>Sku</th>
+                    <th>Description</th>
+                    <th>List Price</th>
+                </tr>
+                
+                @foreach (var item in Model.Prices)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriceID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Part.Sku)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Part.Description)
+                        </td>
+                        <td>
+                            @String.Format("{0:C}", item.ListPrice)
+                        </td>
+                        <td>
+                            <a asp-action="EditPrice" asp-route-id="@item.PriceID">Edit</a> |
+                            <a asp-action="DeletePartFromPriceList" asp-route-id="@item.PriceID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PriceListID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/priceUpdate.js"></script>
+}
